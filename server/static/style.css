@@ -1,0 +1,89 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 微软雅黑Arial, Arial, sans-serif;
+}
+body{
+    touch-action: none;
+}
+canvas{
+    cursor: crosshair;
+}
+h1,h2,h3,h4,h5,h6{
+    text-align: center;
+    margin: 10px 4px 20px;
+}
+.container{
+    width: 75%;
+    margin: 0 auto;
+}
+
+.col-7{
+    width: 65%;
+    float: left;
+    margin-right: 20px;
+}
+.col-3{
+    margin-right: 20px;
+    width: 25%;
+    float: left;
+}
+.row:after{
+    content: '.';
+    height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+.text-blue {
+    color: cornflowerblue;
+}
+.fl{
+    float: left;
+}
+.mid{
+    vertical-align: middle;
+}
+.active{
+    border: 3px solid fuchsia !important;
+}
+
+.rect{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 3px solid black;
+    text-align: center;
+    margin:0 2px 0;
+    cursor: pointer;
+}
+.ctl-row{
+    border: 1px solid darkgreen;
+    background-color: beige;
+    padding-top:3px;
+
+    border-radius: 6px;
+    margin: 2px 0 2px;
+}
+
+.box-sh{
+    box-shadow: 0px 0px 8px 3px #bbb;
+}
+
+#msg{
+    overflow-y: scroll;
+    padding: 0 10px 0;
+    /*width: 100%;*/
+    min-height: 400px;
+    max-height: 600px;
+}
+#msg p{
+    white-space:nowrap;
+}
+input[type=range]{cursor: pointer;}
+input[type=text]{
+    height: 20px;
+    font-size: 16px;
+    margin: 5px;
+    width: 90%;
+}

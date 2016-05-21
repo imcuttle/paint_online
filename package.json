@@ -1,0 +1,27 @@
+{
+  "name": "paint_online",
+  "version": "1.0.0",
+  "description": "基于socket.io 实现的实时画板与实时聊天",
+  "main": "server/server.js",
+  "dependencies": {
+    "socket.io": "^1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/moyuyc/paint_online.git"
+  },
+  "keywords": [
+    "node",
+    "socket.io"
+  ],
+  "author": "Moyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moyuyc/paint_online/issues"
+  },
+  "homepage": "https://github.com/moyuyc/paint_online#readme"
+
+}

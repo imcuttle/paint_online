@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Paint Online</title>
+    <link href="style.css" rel="stylesheet" />
+    <script>
+        document.write('<script defer="defer" src="'+location.href+'socket.io/socket.io.js"><'+'/script>');
+    </script>
+    <script defer="defer" src="js.js"></script>
+</head>
+<body>
+    <main class="container">
+        <h1>Paint Online</h1>
+        <div class="row">
+            <div class="col-7 box-sh">
+                <canvas height="600">
+                    Sorry, Your Browser don't support canvas of Html5.
+                </canvas>
+                <div style="background-color: gainsboro">
+                    <div class="ctl-row" id="colors">
+                        <span class="text-blue fl" style="margin: 3px;padding-right: 4px;">Colors</span>
+
+                    </div>
+                    <div class="ctl-row">
+                        <span class="text-blue fl" style="margin: 3px;padding-right: 4px;">Width</span>
+                        <input id="ranger" type="range" style="width: 100px;" value="1" min="1" step="1" max="10"/>
+                        <span>1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 box-sh">
+                <h3>Messages</h3>
+                <div id="msg">
+                </div>
+                <input type="text" id="input-msg" placeholder="enter to send"/>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
