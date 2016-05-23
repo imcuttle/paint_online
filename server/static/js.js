@@ -18,9 +18,9 @@ socket.on('server msg',function (data) {
 socket.on('login',function () {
     socket.emit('login',prompt('输入你的姓名'));
 });
+
 socket.on('paint paths',function (paths) {
     paths = JSON.parse(paths)
-    if(!paths || !paths.length) return;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     for(var k in paths)
         Ctl.drawPts(ctx, paths[k]);

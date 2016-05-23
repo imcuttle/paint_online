@@ -28,6 +28,11 @@
                         <span class="text-blue fl" style="margin: 3px;padding-right: 4px;">Width</span>
                         <input id="ranger" type="range" style="width: 100px;" value="1" min="1" step="1" max="10"/>
                         <span>1</span>
+                        <div class="fr">
+                            <a class="btn btn-blue" onclick="this.href=canvas.toDataURL();" download="png.png">下载</a>
+                            <a class="btn btn-blue" href="javascript:socket.emit('remove paint');">清除我的痕迹</a>
+                        </div>
+                        <div style="clear: both;"></div>
                     </div>
                 </div>
             </div>

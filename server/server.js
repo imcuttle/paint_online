@@ -19,8 +19,32 @@ function handler(req,res) {
         }
     );
 }
-
-var paths = [];
+var paths = (function () {
+    var _paths = {};
+    return {
+        add:function (key,pts) {
+            _paths[key]=_paths[key]||[];
+            _paths[key].push(pts);
+        },
+        get:function (key) {
+            return _paths[key];
+        },
+        remove:function (key) {
+            delete _paths[key];
+        },
+        clear:function () {
+            _paths = [];
+        },
+        toJSON:function () {
+            var keys = Object.keys(_paths),all=[];
+            for(var i in keys){
+                var key = keys[i];
+                all = all.concat(_paths[key]);
+            }
+            return all;
+        }
+    }
+})();
 function doCmd(msg,socket) {
     if(msg[0]==='#'){
         var msg = msg.substring(1),
@@ -40,8 +64,9 @@ function doCmd(msg,socket) {
                 socket.emit('server msg','指令操作成功！');
                 break;
             case 'clear paths':
-                paths = [];
+                paths.clear();
                 socket.emit('server msg','指令操作成功！');
+                socket.broadcast.emit('paint paths',JSON.stringify(paths));
                 socket.emit('paint paths',JSON.stringify(paths));
                 break;
             default: return false;
@@ -75,9 +100,10 @@ function escapeHTML(data) {
 }
 io.sockets.on('connection',function (socket) {
     socket.on('login',function (name) {
-        socket.name = name || socket.id;
-        socket.emit('server msg','欢迎, '+name+' !');
-        socket.broadcast.emit('server msg','欢迎, '+name+' !');
+        socket.name = name || socket.id.substring(2);
+
+        socket.emit('server msg','欢迎, '+socket.name+' !');
+        socket.broadcast.emit('server msg','欢迎, '+socket.name+' !');
         socket.emit('paint paths',JSON.stringify(paths));
 
         socket.on('client msg',function (msg) {
@@ -89,9 +115,14 @@ io.sockets.on('connection',function (socket) {
             }
         });
         socket.on('disconnect',function () {
+            //paths.remove(this.id);
             socket.broadcast.emit('server msg','拜, '+socket.name +'。');
         });
-
+        socket.on('remove paint',function () {
+            paths.remove(this.id);
+            socket.emit('paint paths',JSON.stringify(paths));
+            socket.broadcast.emit('paint paths',JSON.stringify(paths));
+        });
         socket.on('paint',function (data) {
             data = JSON.parse(data);
             var pts = data.data;
@@ -101,7 +132,7 @@ io.sockets.on('connection',function (socket) {
                     break;
                 case 'end' :
                     socket.broadcast.emit('paint pts',JSON.stringify(pts));
-                    paths.push(pts);
+                    paths.add(this.id,pts);
                     break;
             }
         });
