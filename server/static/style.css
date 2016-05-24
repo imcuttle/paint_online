@@ -18,7 +18,15 @@ h1,h2,h3,h4,h5,h6{
     width: 98%;
     margin: 0 auto;
 }
-
+.triangle-r{
+    display: inline-block;
+    border-style: solid;
+    border-color: transparent transparent transparent cornflowerblue ;
+    border-width:13px;
+    height: 0px;
+    width: 0px;
+    overflow: hidden;
+}
 .col-7{
     width: 68%;
     float: left;

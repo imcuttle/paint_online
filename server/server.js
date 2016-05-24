@@ -4,9 +4,9 @@
 var httpd = require('http').createServer(handler);
 var io = require('socket.io').listen(httpd);
 var fs = require('fs');
-
-httpd.listen(4001);
-
+var port = 4001;
+httpd.listen(port);
+console.log('http://localhost:'+port);
 function handler(req,res) {
     fs.readFile(__dirname+'/static/'+(req.url==='/'?'index.html':req.url),
         function (err,data) {
@@ -18,6 +18,10 @@ function handler(req,res) {
             res.end(data);
         }
     );
+
+    // var stream = fs.createReadStream(__dirname+'/static/'+(req.url==='/'?'index.html':req.url));
+    // if(stream)
+    //     stream.pipe(res);
 }
 var paths = (function () {
     var _paths = {};
