@@ -38,7 +38,7 @@ socket.on('cmd',function (data) {
 window.onload = function () {
     Ctl.init();
     function resize() {
-        canvas.width = document.getElementsByClassName('col-7')[0].clientWidth;
+        canvas.width = canvas.parentElement.clientWidth;
         canvas.paths = canvas.pts = [];
         socket.emit('repaint');
     }

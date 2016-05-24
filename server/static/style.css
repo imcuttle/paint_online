@@ -4,6 +4,7 @@
     font-family: 微软雅黑Arial, Arial, sans-serif;
 }
 body{
+    min-width: 1000px;
     touch-action: none;
 }
 canvas{
