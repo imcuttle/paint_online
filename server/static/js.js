@@ -14,6 +14,7 @@ socket.on('server msg',function (data) {
     var ele = document.createElement('p');
     ele.innerHTML = data;
     msg.appendChild(ele);
+    msg.scrollTop = msg.scrollHeight;
 })
 socket.on('login',function () {
     socket.emit('login',prompt('输入你的姓名'));
@@ -48,7 +49,6 @@ window.onload = function () {
         if(e.keyCode === 13 && this.value!=''){
             socket.emit('client msg',this.value);
             this.value = '';
-            msg.scrollTop = msg.scrollHeight;
         }
     }
 }
