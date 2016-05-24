@@ -6,4 +6,4 @@
 
     node server/server.js
 
-    http://localhost
+    http://localhost:4001/

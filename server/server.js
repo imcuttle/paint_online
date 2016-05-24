@@ -5,7 +5,7 @@ var httpd = require('http').createServer(handler);
 var io = require('socket.io').listen(httpd);
 var fs = require('fs');
 
-httpd.listen(80);
+httpd.listen(4001);
 
 function handler(req,res) {
     fs.readFile(__dirname+'/static/'+(req.url==='/'?'index.html':req.url),
