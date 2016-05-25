@@ -26,6 +26,9 @@ function handler(req,res) {
 var paths = (function () {
     var _paths = {};
     return {
+        set :function (key,paths) {
+            _paths[key] = paths;
+        },
         add:function (key,pts) {
             _paths[key]=_paths[key]||[];
             _paths[key].push(pts);
@@ -124,6 +127,18 @@ io.sockets.on('connection',function (socket) {
         });
         socket.on('remove paint',function () {
             paths.remove(this.id);
+            socket.emit('paint paths',JSON.stringify(paths));
+            socket.broadcast.emit('paint paths',JSON.stringify(paths));
+        });
+        socket.on('move my paint',function (x,y) {
+            var _paths = paths.get(socket.id) || [];
+            _paths.forEach(ele=>{
+                ele.pts.forEach(v=>{
+                    v.x+=x;
+                    v.y+=y;
+                });
+            });
+            paths.set(socket.id,_paths);
             socket.emit('paint paths',JSON.stringify(paths));
             socket.broadcast.emit('paint paths',JSON.stringify(paths));
         });

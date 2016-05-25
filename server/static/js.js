@@ -53,25 +53,38 @@ window.onload = function () {
     }
 }
 
+
 canvas.addEventListener('mousemove',function (e) {
     if(e.buttons === 1) {
         var x = e.offsetX, y = e.offsetY;
-        Ctl.addPos(x,y);
-        Ctl.drawPts(ctx, this.pts);
-        socket.emit('paint',JSON.stringify({data:new Path(this.pts),status:'ing'}))
+        if(e.ctrlKey){
+            this.classList.add('movable');
+            if(this.mouseDown)
+                socket.emit('move my paint',x-this.mouseDown.x,y-this.mouseDown.y);
+            this.mouseDown={x:e.offsetX,y:e.offsetY};
+        }else {
+            Ctl.addPos(x, y);
+            Ctl.drawPts(ctx, this.pts);
+            socket.emit('paint', JSON.stringify({data: new Path(this.pts), status: 'ing'}))
+        }
     }
 });
 
 canvas.addEventListener('mouseup',function (e) {
-    var x = e.offsetX,y = e.offsetY;
-    Ctl.addPos(x,y);
+    this.classList.remove('movable');
+    if(!this.mouseDown) {
+        var x = e.offsetX, y = e.offsetY;
+        Ctl.addPos(x, y);
+    }
     Ctl.addPath(this.pts);
     socket.emit('paint',JSON.stringify({data:new Path(this.pts),status:'end'}))
     Ctl.clearPos();
+    delete this.mouseDown;
 })
 
 canvas.addEventListener('mousedown',function (e) {
     var x = e.offsetX,y = e.offsetY;
+    this.mouseDown={x:e.offsetX,y:e.offsetY};
     Ctl.clearPos();
     Ctl.addPos(x,y);
 });
