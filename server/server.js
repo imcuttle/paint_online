@@ -1,10 +1,10 @@
-/**
+﻿/**
  * Created by Yc on 2016/5/21.
  */
 var httpd = require('http').createServer(handler);
 var io = require('socket.io').listen(httpd);
 var fs = require('fs');
-var port = 4001;
+var port = 80;
 httpd.listen(port);
 console.log('http://localhost:'+port);
 function handler(req,res) {
@@ -108,7 +108,7 @@ function escapeHTML(data) {
 io.sockets.on('connection',function (socket) {
     socket.on('login',function (name) {
         socket.name = name || socket.id.substring(2);
-
+        console.log('new user',new Date().format('yyyy-MM-dd hh:mm:ss'),socket.name);
         socket.emit('server msg','欢迎, '+socket.name+' !');
         socket.broadcast.emit('server msg','欢迎, '+socket.name+' !');
         socket.emit('paint paths',JSON.stringify(paths));

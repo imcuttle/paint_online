@@ -17,10 +17,7 @@ socket.on('server msg',function (data) {
     msg.scrollTop = msg.scrollHeight;
 })
 socket.on('login',function () {
-    if(prompt)
-        socket.emit('login',prompt('输入你的姓名'));
-    else
-        socket.emit('login','手机用户');
+    socket.emit('login',prompt('输入你的姓名'));
 });
 
 socket.on('paint paths',function (paths) {
@@ -56,8 +53,12 @@ window.onload = function () {
     }
 }
 
-
-canvas.addEventListener('mousemove',function (e) {
+function bind(ele,type,fn) {
+    fn = fn.bind(ele);
+    ele[type] = fn;
+    ele.addEventListener(type,fn);
+}
+bind(canvas,'mousemove',function (e) {
     if(e.buttons === 1) {
         var x = e.offsetX, y = e.offsetY;
         if(e.ctrlKey){
@@ -72,8 +73,26 @@ canvas.addEventListener('mousemove',function (e) {
         }
     }
 });
-
-canvas.addEventListener('mouseup',function (e) {
+// bind(canvas,'touchstart',function (e) {
+//     var x = e.changedTouches[0].clientX, y = e.changedTouches[0].clientY;
+//     Ctl.addPos(x, y);
+//     Ctl.drawPts(ctx, this.pts);
+//     socket.emit('paint', JSON.stringify({data: new Path(this.pts), status: 'ing'}))
+// })
+// bind(canvas,'touchmove',function (e) {
+//     var x = e.changedTouches[0].clientX, y = e.changedTouches[0].clientY;
+//     Ctl.addPos(x, y);
+//     Ctl.drawPts(ctx, this.pts);
+//     socket.emit('paint', JSON.stringify({data: new Path(this.pts), status: 'ing'}))
+// })
+// bind(canvas,'touchend',function (e) {
+//     var x = e.changedTouches[0].clientX, y = e.changedTouches[0].clientY;
+//     Ctl.addPos(x, y);
+//     Ctl.addPath(this.pts);
+//     socket.emit('paint',JSON.stringify({data:new Path(this.pts),status:'end'}))
+//     Ctl.clearPos();
+// })
+bind(canvas,'mouseup',function (e) {
     this.classList.remove('movable');
     if(!this.mouseDown) {
         var x = e.offsetX, y = e.offsetY;
@@ -85,7 +104,7 @@ canvas.addEventListener('mouseup',function (e) {
     delete this.mouseDown;
 })
 
-canvas.addEventListener('mousedown',function (e) {
+bind(canvas,'mousedown',function (e) {
     var x = e.offsetX,y = e.offsetY;
     this.mouseDown={x:e.offsetX,y:e.offsetY};
     Ctl.clearPos();

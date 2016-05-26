@@ -4,7 +4,7 @@
   "description": "基于socket.io 实现的实时画板与实时聊天",
   "main": "server/server.js",
   "dependencies": {
-    "socket.io": "^1.0"
+    "socket.io": "^1.4.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,5 +23,4 @@
     "url": "https://github.com/moyuyc/paint_online/issues"
   },
   "homepage": "https://github.com/moyuyc/paint_online#readme"
-
 }
